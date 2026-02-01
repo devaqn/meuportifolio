@@ -73,7 +73,7 @@ const Footer = () => {
               Entre em contato e vamos transformar sua ideia em realidade.
             </p>
 
-            <a href="https://wa.me/5581998191625" target="_blank" rel="noopener noreferrer">
+            <a href="https://wa.me/5581998191625?text=Ol%C3%A1!%20Conheci%20seu%20trabalho%20atrav%C3%A9s%20do%20portf%C3%B3lio%20e%20gostaria%20de%20obter%20mais%20informa%C3%A7%C3%B5es%20sobre%20seus%20servi%C3%A7os.%20Fico%20no%20aguardo,%20obrigado(a)" target="_blank" rel="noopener noreferrer">
               <button className="group inline-flex items-center gap-3 px-8 py-4 rounded-full bg-gradient-primary text-white font-semibold text-lg transition-all hover:gap-5 glow-primary hover:scale-105">
                 Entre em Contato
                 <ArrowRight className="w-5 h-5 transition-transform group-hover:translate-x-1" />
