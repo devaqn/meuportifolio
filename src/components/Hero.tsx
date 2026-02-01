@@ -172,7 +172,7 @@ const Hero = () => {
             <p className="mt-6 text-xl md:text-2xl text-white font-light tracking-wide">
               Desenvolvedor Full-Stack & Criador de Experiências Digitais
             </p>
-            <a href="https://wa.me/5581998191625" target="_blank" rel="noopener noreferrer">
+            <a href="https://wa.me/5581998191625?text=Ol%C3%A1!%20Conheci%20seu%20trabalho%20atrav%C3%A9s%20do%20portf%C3%B3lio%20e%20gostaria%20de%20obter%20mais%20informa%C3%A7%C3%B5es%20sobre%20seus%20servi%C3%A7os.%20Fico%20no%20aguardo,%20obrigado(a)" target="_blank" rel="noopener noreferrer">
               <button
                 aria-label="Start Game"
                 className="px-8 py-2 mt-10 text-white font-bold text-lg rounded-full shadow-lg transition-transform transform bg-transparent border-2 border-white hover:scale-105 hover:border-green-600 hover:shadow-green-500/50 hover:shadow-2xl focus:outline-none"
