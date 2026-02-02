@@ -1,73 +1,127 @@
-# Welcome to your Lovable project
+# 👨‍💻 Pedro Miguel — Developer Portfolio
 
-## Project info
+Welcome to my professional portfolio 🚀  
+Here you’ll find some of my main projects, studies, and solutions developed throughout my journey as a **software developer**.
 
-**URL**: https://lovable.dev/projects/REPLACE_WITH_PROJECT_ID
+🔗 **Live portfolio:**  
+👉 https://portfoliodevaqn.netlify.app
 
-## How can I edit this code?
+---
 
-There are several ways of editing your application.
+## 🧠 About Me
 
-**Use Lovable**
+I’m a developer focused on building **practical solutions**, automations, and web applications.  
+I enjoy creating systems that truly solve problems, always aiming for clean, organized, and scalable code.
 
-Simply visit the [Lovable Project](https://lovable.dev/projects/REPLACE_WITH_PROJECT_ID) and start prompting.
+I have experience with both **front-end** and **back-end** development, as well as projects involving **bots**, **APIs**, **Linux servers**, and **automation**.
 
-Changes made via Lovable will be committed automatically to this repo.
+---
 
-**Use your preferred IDE**
+## 🛠️ Technologies & Tools
 
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
+Some of the technologies I work with:
 
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
+- **JavaScript / Node.js**
+- **HTML5, CSS3**
+- **REST APIs**
+- **Git & GitHub**
+- **PM2**
+- **Linux / VPS**
+- **Process Automation**
+- **WhatsApp Integration (Baileys)**
 
-Follow these steps:
+---
 
-```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
+## 📂 What You’ll Find Here
 
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
+- 📌 Personal and professional projects  
+- 🤖 Bots and automations  
+- 🌐 Web applications  
+- 🧪 Technical studies and experiments  
+- 📈 Continuous growth as a developer  
 
-# Step 3: Install the necessary dependencies.
-npm i
+Each project includes a description, its purpose, and when applicable, a link to the repository.
 
-# Step 4: Start the development server with auto-reloading and an instant preview.
-npm run dev
-```
+---
 
-**Edit a file directly in GitHub**
+## 📬 Contact
 
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
+If you’d like to connect, collaborate, or discuss a project:
 
-**Use GitHub Codespaces**
+- 💼 **Portfolio:** https://portfoliodevaqn.netlify.app  
+- 🐙 **GitHub:** https://github.com/devaqn  
 
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
+---
 
-## What technologies are used for this project?
+## 🚀 Final Notes
 
-This project is built with:
+This portfolio is constantly evolving.  
+Always learning, improving, and building better solutions.
 
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
+Feel free to explore 👊
 
-## How can I deploy this project?
+---
 
-Simply open [Lovable](https://lovable.dev/projects/REPLACE_WITH_PROJECT_ID) and click on Share -> Publish.
+<br>
 
-## Can I connect a custom domain to my Lovable project?
+# 👨‍💻 Pedro Miguel — Portfólio de Desenvolvedor
 
-Yes, you can!
+Bem-vindo ao meu portfólio profissional 🚀  
+Aqui você encontra alguns dos meus principais projetos, estudos e soluções desenvolvidas ao longo da minha jornada como **desenvolvedor**.
 
-To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
+🔗 **Portfólio online:**  
+👉 https://portfoliodevaqn.netlify.app
 
-Read more here: [Setting up a custom domain](https://docs.lovable.dev/features/custom-domain#custom-domain)
+---
+
+## 🧠 Sobre Mim
+
+Sou desenvolvedor com foco em **soluções práticas**, automações e aplicações web.  
+Gosto de criar sistemas que realmente resolvem problemas, sempre prezando por código limpo, organizado e escalável.
+
+Tenho experiência tanto no **front-end** quanto no **back-end**, além de projetos envolvendo **bots**, **APIs**, **servidores Linux** e **automação**.
+
+---
+
+## 🛠️ Tecnologias & Ferramentas
+
+Algumas das tecnologias que utilizo:
+
+- **JavaScript / Node.js**
+- **HTML5, CSS3**
+- **APIs REST**
+- **Git & GitHub**
+- **PM2**
+- **Linux / VPS**
+- **Automação de processos**
+- **Integração com WhatsApp (Baileys)**
+
+---
+
+## 📂 O Que Você Vai Encontrar
+
+- 📌 Projetos pessoais e profissionais  
+- 🤖 Bots e automações  
+- 🌐 Aplicações web  
+- 🧪 Estudos e experimentos técnicos  
+- 📈 Evolução contínua como desenvolvedor  
+
+Cada projeto possui descrição, objetivo e, quando aplicável, link para o repositório.
+
+---
+
+## 📬 Contato
+
+Se quiser trocar uma ideia, colaborar ou conversar sobre algum projeto:
+
+- 💼 **Portfólio:** https://portfoliodevaqn.netlify.app  
+- 🐙 **GitHub:** https://github.com/devaqn  
+
+---
+
+## 🚀 Considerações Finais
+
+Este portfólio está em constante evolução.  
+Sempre buscando aprender, evoluir e construir soluções cada vez melhores.
+
+Sinta-se à vontade para explorar 👊
