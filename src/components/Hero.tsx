@@ -166,20 +166,21 @@ const Hero = () => {
             ref={heroContentRef}
             className="relative z-10 text-center px-4 opacity-0"
           >
-            <h1 className="text-7xl md:text-9xl lg:text-[12rem] font-bold tracking-tighter text-white leading-none">
-              Pedro Miguel 
+           <h1 className="text-7xl md:text-9xl lg:text-[12rem] font-bold tracking-tighter leading-none text-[hsl(215_90%_60%)]">
+              Pedro MIguel  
             </h1>
             <p className="mt-6 text-xl md:text-2xl text-white font-light tracking-wide">
               Desenvolvedor Full-Stack & Criador de Experiências Digitais
             </p>
             <a href="https://wa.me/5581998191625?text=Ol%C3%A1!%20Conheci%20seu%20trabalho%20atrav%C3%A9s%20do%20portf%C3%B3lio%20e%20gostaria%20de%20obter%20mais%20informa%C3%A7%C3%B5es%20sobre%20seus%20servi%C3%A7os.%20Fico%20no%20aguardo,%20obrigado(a)" target="_blank" rel="noopener noreferrer">
-              <button
-                aria-label="Start Game"
-                className="px-8 py-2 mt-10 text-white font-bold text-lg rounded-full shadow-lg transition-transform transform bg-transparent border-2 border-white hover:scale-105 hover:border-green-600 hover:shadow-green-500/50 hover:shadow-2xl focus:outline-none"
-                id="startButton"
-              >
-                Contate-me
-              </button>
+             <button
+            aria-label="Start Game"
+            className="px-8 py-2 mt-10 text-white font-bold text-lg rounded-full shadow-lg transition-transform transform bg-transparent border-2 border-[rgba(124,58,237,0.7)] hover:scale-105 hover:border-[rgba(124,58,237,1)] hover:shadow-[0_0_30px_rgba(124,58,237,0.5)] focus:outline-none"
+            id="startButton"
+          >
+            Entre Em Contato
+          </button>
+
             </a>
           </div>
         </div>
