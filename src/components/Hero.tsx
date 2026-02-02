@@ -115,7 +115,7 @@ const Hero = () => {
           <linearGradient id="purpleGradient" x1="0%" y1="0%" x2="100%" y2="100%">
             <stop offset="0%" stopColor="#8b5cf6"/>
             <stop offset="50%" stopColor="#7c3aed"/>
-            <stop offset="100%" stopColor="#6366f1"/>
+            <stop offset="100%" stopColor="#7c3aed"/>
           </linearGradient>
         </defs>
         
@@ -137,7 +137,7 @@ const Hero = () => {
           className="hero-container w-full h-screen relative flex justify-center items-center overflow-hidden"
           style={{ 
             clipPath: "url(#clip-path1)",
-            background: "linear-gradient(135deg, #8b5cf6 0%, #7c3aed 50%, #6366f1 100%)"
+            background: "linear-gradient(135deg, #8b5cf6 0%, #7c3aed 50%, #7c3aed 100%)"
           }}
         >
           {/* Swirl Background SVG */}

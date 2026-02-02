@@ -6,57 +6,82 @@
 
 @layer base {
   :root {
-    --background: 240 10% 4%;
+    /* Base: preto + roxo frio */
+    --background: 260 20% 4%;
     --foreground: 0 0% 98%;
 
-    --card: 240 10% 6%;
+    --card: 260 20% 6%;
     --card-foreground: 0 0% 98%;
 
-    --popover: 240 10% 6%;
+    --popover: 260 20% 6%;
     --popover-foreground: 0 0% 98%;
 
-    --primary: 225 105% 65%;
+    /* Primary = roxo */
+    --primary: 262 83% 58%;
     --primary-foreground: 0 0% 98%;
 
-    --secondary: 225 105% 15% / 0.4;
+    --secondary: 262 60% 20% / 0.4;
     --secondary-foreground: 0 0% 98%;
 
-    --muted: 240 10% 15%;
-    --muted-foreground: 240 5% 55%;
+    --muted: 260 15% 14%;
+    --muted-foreground: 260 8% 55%;
 
-    --accent: 280 80% 70%;
+    /* Accent = azul */
+    --accent: 215 90% 60%;
     --accent-foreground: 0 0% 98%;
 
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 0 0% 98%;
 
-    --border: 240 10% 18%;
-    --input: 240 10% 18%;
-    --ring: 263 70% 65%;
+    --border: 260 15% 18%;
+    --input: 260 15% 18%;
+
+    /* Ring puxando pro roxo */
+    --ring: 262 83% 65%;
 
     --radius: 0.75rem;
 
     /* Custom design tokens */
-    --gradient-primary: linear-gradient(135deg, hsl(225 105% 60%) 0%, hsl(225 105% 60%) 50%, hsl(225 105% 60%) 100%);
-    --gradient-dark: linear-gradient(180deg, hsl(240 10% 4%) 0%, hsl(240 10% 8%) 100%);
-    --gradient-hero: radial-gradient(ellipse 80% 50% at 50% -20%, hsl(225 105% 60% / 0.3) 0%, transparent 60%);
-    --gradient-footer: radial-gradient(ellipse 80% 50% at 50% 120%, hsl(225 105% 60% / 0.4) 0%, transparent 60%);
-    
-    --shadow-glow: 0 0 60px hsl(225 105% 50% / 0.4);
-    --shadow-card: 0 8px 32px hsl(0 0% 0% / 0.3);
 
-    --font-display: 'Space Grotesk', sans-serif;
+    --gradient-primary: linear-gradient(
+      135deg,
+      #8b5cf6 0%,
+      #7c3aed 50%,
+      #6d28d9 100%
+    );
+
+    --gradient-dark: linear-gradient(
+      180deg,
+      hsl(260 25% 5%) 0%,
+      hsl(260 30% 9%) 100%
+    );
+
+    --gradient-hero: radial-gradient(
+      ellipse 80% 50% at 50% -20%,
+      hsl(262 83% 58% / 0.35) 0%,
+      transparent 60%
+    );
 
     --gradient-hero-soft: radial-gradient(
-  ellipse 80% 50% at 50% -20%,
-  hsl(225 105% 60% / 0.4) 0%,
-  transparent 60%
-);
+      ellipse 80% 50% at 50% -20%,
+      hsl(262 83% 58% / 0.45) 0%,
+      transparent 60%
+    );
 
+    --gradient-footer: radial-gradient(
+      ellipse 80% 50% at 50% 120%,
+      hsl(215 90% 60% / 0.35) 0%,
+      transparent 60%
+    );
+
+    --shadow-glow: 0 0 60px hsl(262 83% 58% / 0.45);
+    --shadow-card: 0 8px 32px hsl(0 0% 0% / 0.35);
+
+    --font-display: 'Space Grotesk', sans-serif;
   }
 
   .dark {
-    --background: 240 10% 4%;
+    --background: 260 20% 4%;
     --foreground: 0 0% 98%;
   }
 }
@@ -73,7 +98,7 @@
   body {
     @apply bg-background text-foreground;
     font-family: var(--font-display);
-    background-image: 
+    background-image:
       linear-gradient(rgba(255, 255, 255, 0.02) 1px, transparent 1px),
       linear-gradient(90deg, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
     background-size: 60px 60px;
@@ -133,7 +158,6 @@
   );
 }
 
-
 .hero {
   position: relative;
   height: 100vh;
@@ -148,8 +172,8 @@
   inset: 0;
   background: radial-gradient(
     circle at 30% 30%,
-    #6a00ff,
-    #6a00ff 40%,
+    #7c3aed,
+    #4c1d95 45%,
     #000 75%
   );
   transform: scale(1.2);
@@ -183,9 +207,9 @@
 
   background: radial-gradient(
     circle,
-    rgba(52, 1, 94, 0.822) 0%,
-    rgba(34, 67, 255, 0.15) 40%,
-    rgba(0, 38, 255, 0.05) 60%,
+    rgba(124, 58, 237, 0.7) 0%,
+    rgba(59, 130, 246, 0.25) 40%,
+    rgba(59, 130, 246, 0.1) 60%,
     transparent 70%
   );
 
@@ -200,8 +224,6 @@
   }
 }
 
-
 p, h1, h2, h3, h4, h5, h6 {
   cursor: default;
 }
-
