@@ -68,7 +68,7 @@ const Navbar = () => {
       >
         <div className="flex items-center justify-between">
           <a href="#hero" className="text-xl font-bold text-gradient">
-            DEV MOTTA
+            DEVAQN
           </a>
 
           {/* Desktop */}
@@ -84,7 +84,7 @@ const Navbar = () => {
               </a>
             ))}
 
-            <a href="https://wa.me/5581995250365" target="_blank">
+            <a href="https://wa.me/5581998191625" target="_blank">
               <button
                 aria-label="Start Game"
                 className="px-4 py-2 text-white font-bold text-sm rounded-full shadow-lg transition-transform transform bg-transparent border-2 border-white hover:scale-105 hover:border-green-600 hover:shadow-green-500/50 hover:shadow-2xl focus:outline-none"
@@ -119,7 +119,7 @@ const Navbar = () => {
                 </a>
               ))}
             </div>
-            <a href="https://wa.me/5581995250365" target="_blank">
+            <a href="https://wa.me/5581998191625" target="_blank">
               <button
                 aria-label="Start Game"
                 className="px-2 py-2 w-full mt-2 text-white font-bold text-sm rounded-full shadow-lg transition-transform transform bg-transparent border-2 border-white hover:scale-105 hover:border-green-600 hover:shadow-green-500/50 hover:shadow-2xl focus:outline-none"

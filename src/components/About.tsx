@@ -95,7 +95,7 @@ const About = () => {
             Sobre Mim
           </span>
           <h2 className="text-4xl md:text-5xl font-bold mt-4 text-gradient">
-            Quem sou eu
+            Quem eu sou :
           </h2>
         </div>
 

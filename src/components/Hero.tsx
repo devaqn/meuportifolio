@@ -37,16 +37,18 @@ const Hero = () => {
     tl.fromTo(
       logoPathRef.current,
       {
-        scaleX: 0.21,
-        scaleY: () => 0.21 * heightRatio,
+        scaleX: 0.15,
+        scaleY: () => 0.15 * heightRatio,
         x: 0,
-        transformOrigin: "center center",
+        y: 0,
+        transformOrigin: "50% 50%",
       },
       {
-        scaleX: 45,
-        scaleY: () => 45 * heightRatio,
-        x: -1.45,
-        transformOrigin: "center center",
+        scaleX: 60,
+        scaleY: () => 60 * heightRatio,
+        x: 0,
+        y: 0,
+        transformOrigin: "50% 50%",
         duration: 1,
         ease: "power2.in",
       },
@@ -101,17 +103,27 @@ const Hero = () => {
 
   return (
     <>
-      {/* Hidden SVG for clip path */}
+      {/* Hidden SVG for clip path - LETRA P ROXA E CENTRALIZADA */}
       <svg
         xmlns="http://www.w3.org/2000/svg"
         width="0"
         height="0"
         className="absolute top-0 left-0 pointer-events-none z-0"
       >
+        <defs>
+          {/* Gradiente Roxo */}
+          <linearGradient id="purpleGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stopColor="#8b5cf6"/>
+            <stop offset="50%" stopColor="#7c3aed"/>
+            <stop offset="100%" stopColor="#6366f1"/>
+          </linearGradient>
+        </defs>
+        
         <clipPath id="clip-path1" clipPathUnits="objectBoundingBox">
+          {/* Letra P GROSSA e PERFEITAMENTE CENTRALIZADA */}
           <path
             ref={logoPathRef}
-            d="M0.984,0.475 C0.995,0.475,1,0.48,1,0.491 V0.781 C1,0.851,0.981,0.905,0.942,0.943 C0.903,0.981,0.846,1,0.773,1 H0.227 C0.155,1,0.099,0.981,0.059,0.943 C0.02,0.905,0,0.851,0,0.781 V0.219 C0,0.148,0.02,0.094,0.059,0.056 C0.099,0.019,0.155,0,0.227,0 H0.773 C0.846,0,0.903,0.019,0.942,0.056 C0.981,0.094,1,0.148,1,0.219 V0.438 C1,0.448,0.995,0.453,0.984,0.453 H0.528 C0.517,0.453,0.511,0.448,0.511,0.438 V0.275 H0.489 V0.725 H0.605 V0.703 H0.526 C0.516,0.703,0.511,0.698,0.511,0.687 V0.491 C0.511,0.48,0.517,0.475,0.528,0.475 H0.984"
+            d="M 0.41,0.12 L 0.41,0.88 L 0.59,0.88 L 0.59,0.58 L 0.73,0.58 Q 0.85,0.58 0.91,0.52 Q 0.97,0.46 0.97,0.35 Q 0.97,0.24 0.91,0.18 Q 0.85,0.12 0.73,0.12 Z M 0.59,0.26 L 0.73,0.26 Q 0.79,0.26 0.82,0.29 Q 0.85,0.32 0.85,0.35 Q 0.85,0.38 0.82,0.41 Q 0.79,0.44 0.73,0.44 L 0.59,0.44 Z"
           />
         </clipPath>
       </svg>
@@ -122,8 +134,11 @@ const Hero = () => {
       >
         <div
           ref={heroContainerRef}
-          className="hero-container w-full h-screen relative flex justify-center items-center overflow-hidden bg-background"
-          style={{ clipPath: "url(#clip-path1)" }}
+          className="hero-container w-full h-screen relative flex justify-center items-center overflow-hidden"
+          style={{ 
+            clipPath: "url(#clip-path1)",
+            background: "linear-gradient(135deg, #8b5cf6 0%, #7c3aed 50%, #6366f1 100%)"
+          }}
         >
           {/* Swirl Background SVG */}
           <svg
@@ -142,7 +157,7 @@ const Hero = () => {
               preserveAspectRatio="xMidYMid slice"
             />
 
-            {/* se quiser overlay */}
+            {/* Overlay escuro */}
             <rect width="100%" height="100%" fill="rgba(0,0,0,0.35)" />
           </svg>
 
@@ -152,12 +167,12 @@ const Hero = () => {
             className="relative z-10 text-center px-4 opacity-0"
           >
             <h1 className="text-7xl md:text-9xl lg:text-[12rem] font-bold tracking-tighter text-white leading-none">
-              Gabriel Motta
+              Pedro Miguel 
             </h1>
             <p className="mt-6 text-xl md:text-2xl text-white font-light tracking-wide">
               Desenvolvedor Full-Stack & Criador de Experiências Digitais
             </p>
-            <a href="https://wa.me/5581995250365" target="_blank" rel="noopener noreferrer">
+            <a href="https://wa.me/5581998191625" target="_blank" rel="noopener noreferrer">
               <button
                 aria-label="Start Game"
                 className="px-8 py-2 mt-10 text-white font-bold text-lg rounded-full shadow-lg transition-transform transform bg-transparent border-2 border-white hover:scale-105 hover:border-green-600 hover:shadow-green-500/50 hover:shadow-2xl focus:outline-none"

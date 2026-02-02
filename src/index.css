@@ -148,7 +148,7 @@
   inset: 0;
   background: radial-gradient(
     circle at 30% 30%,
-    #4169e1,
+    #6a00ff,
     #6a00ff 40%,
     #000 75%
   );
@@ -183,7 +183,7 @@
 
   background: radial-gradient(
     circle,
-    rgba(23, 58, 255, 0.35) 0%,
+    rgba(52, 1, 94, 0.822) 0%,
     rgba(34, 67, 255, 0.15) 40%,
     rgba(0, 38, 255, 0.05) 60%,
     transparent 70%

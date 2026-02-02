@@ -73,7 +73,7 @@ const Footer = () => {
               Entre em contato e vamos transformar sua ideia em realidade.
             </p>
 
-            <a href="https://wa.me/5581995250365" target="_blank" rel="noopener noreferrer">
+            <a href="https://wa.me/5581998191625" target="_blank" rel="noopener noreferrer">
               <button className="group inline-flex items-center gap-3 px-8 py-4 rounded-full bg-gradient-primary text-white font-semibold text-lg transition-all hover:gap-5 glow-primary hover:scale-105">
                 Entre em Contato
                 <ArrowRight className="w-5 h-5 transition-transform group-hover:translate-x-1" />
@@ -85,7 +85,7 @@ const Footer = () => {
         {/* Footer content */}
         <div ref={contentRef} className="flex flex-col md:flex-row items-center justify-between gap-8">
           <div>
-            <h3 className="text-2xl font-bold text-gradient mb-2">Gabriel Motta</h3>
+            <h3 className="text-2xl font-bold text-gradient mb-2">Pedro Miguel</h3>
             <p className="text-muted-foreground text-sm">
               Criando experiências digitais únicas
             </p>
@@ -94,10 +94,10 @@ const Footer = () => {
           {/* Social links */}
           <div className="flex items-center gap-4">
             {[
-              { icon: Github, href: 'https://github.com/GabrielVictor07', label: 'GitHub' },
-              { icon: Linkedin, href: 'https://www.linkedin.com/in/gabriel-victor-a677b9344/', label: 'LinkedIn' },
+              { icon: Github, href: 'https://github.com/devaqn', label: 'GitHub' },
+              { icon: Linkedin, href: 'https://www.linkedin.com/in/pedro-miguel-5b66a72b5', label: 'LinkedIn' },
               { icon: Twitter, href: '#', label: 'Twitter' },
-              { icon: Instagram, href: 'https://www.instagram.com/dev_motta07/', label: 'Instagram' },
+              { icon: Instagram, href: 'https://www.instagram.com/pedromiguel.aqn/', label: 'Instagram' },
             ].map((social, index) => (
               <a
                 key={index}
@@ -114,7 +114,7 @@ const Footer = () => {
         {/* Copyright */}
         <div className="mt-12 pt-8 border-t border-border text-center">
           <p className="text-muted-foreground text-sm">
-            © {new Date().getFullYear()} Seu Nome. Todos os direitos reservados.
+            © {new Date().getFullYear()}© 2026 devaqn. Todos os direitos reservados.
           </p>
         </div>
       </div>
