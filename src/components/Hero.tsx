@@ -167,7 +167,7 @@ const Hero = () => {
             className="relative z-10 text-center px-4 opacity-0"
           >
            <h1 className="text-7xl md:text-9xl lg:text-[12rem] font-bold tracking-tighter leading-none text-[hsl(215_90%_60%)]">
-              Pedro MIguel  
+              Pedro Miguel  
             </h1>
             <p className="mt-6 text-xl md:text-2xl text-white font-light tracking-wide">
               Desenvolvedor Full-Stack & Criador de Experiências Digitais
