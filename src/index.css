@@ -1,12 +1,9 @@
-@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap');
-
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 @layer base {
   :root {
-    /* Base: preto + roxo frio */
     --background: 260 20% 4%;
     --foreground: 0 0% 98%;
 
@@ -16,7 +13,6 @@
     --popover: 260 20% 6%;
     --popover-foreground: 0 0% 98%;
 
-    /* Primary = roxo */
     --primary: 262 83% 58%;
     --primary-foreground: 0 0% 98%;
 
@@ -26,7 +22,6 @@
     --muted: 260 15% 14%;
     --muted-foreground: 260 8% 55%;
 
-    /* Accent = azul */
     --accent: 215 90% 60%;
     --accent-foreground: 0 0% 98%;
 
@@ -36,12 +31,9 @@
     --border: 260 15% 18%;
     --input: 260 15% 18%;
 
-    /* Ring puxando pro roxo */
     --ring: 262 83% 65%;
 
     --radius: 0.75rem;
-
-    /* Custom design tokens */
 
     --gradient-primary: linear-gradient(
       135deg,
@@ -50,21 +42,9 @@
       #6d28d9 100%
     );
 
-    --gradient-dark: linear-gradient(
-      180deg,
-      hsl(260 25% 5%) 0%,
-      hsl(260 30% 9%) 100%
-    );
-
     --gradient-hero: radial-gradient(
       ellipse 80% 50% at 50% -20%,
       hsl(262 83% 58% / 0.35) 0%,
-      transparent 60%
-    );
-
-    --gradient-hero-soft: radial-gradient(
-      ellipse 80% 50% at 50% -20%,
-      hsl(262 83% 58% / 0.45) 0%,
       transparent 60%
     );
 
@@ -75,9 +55,8 @@
     );
 
     --shadow-glow: 0 0 60px hsl(262 83% 58% / 0.45);
-    --shadow-card: 0 8px 32px hsl(0 0% 0% / 0.35);
 
-    --font-display: 'Space Grotesk', sans-serif;
+    --font-display: 'Space Grotesk', system-ui, -apple-system, sans-serif;
   }
 
   .dark {
@@ -118,10 +97,6 @@
     background: var(--gradient-primary);
   }
 
-  .bg-gradient-hero {
-    background: var(--gradient-hero);
-  }
-
   .bg-gradient-footer {
     background: var(--gradient-footer);
   }
@@ -133,11 +108,6 @@
   .line-mask {
     overflow: hidden;
   }
-
-  .split-line {
-    display: block;
-    transform: translateY(100%);
-  }
 }
 
 @layer utilities {
@@ -146,53 +116,12 @@
   }
 }
 
-.bg-gradient-hero-soft {
-  background: var(--gradient-hero-soft);
-}
-
 .hero-transition-overlay {
   background: linear-gradient(
     to bottom,
     transparent,
     hsl(var(--background)) 70%
   );
-}
-
-.hero {
-  position: relative;
-  height: 100vh;
-  overflow: hidden;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.hero-bg {
-  position: absolute;
-  inset: 0;
-  background: radial-gradient(
-    circle at 30% 30%,
-    #7c3aed,
-    #4c1d95 45%,
-    #000 75%
-  );
-  transform: scale(1.2);
-}
-
-.hero-noise {
-  position: absolute;
-  inset: 0;
-  background-image: url("/noise.png");
-  opacity: 0.04;
-  pointer-events: none;
-}
-
-.hero-content {
-  position: relative;
-  text-align: center;
-  color: white;
-  opacity: 0;
-  transform: translateY(40px);
 }
 
 #cursor-glow {
@@ -204,7 +133,6 @@
   border-radius: 50%;
   pointer-events: none;
   z-index: 9999;
-
   background: radial-gradient(
     circle,
     rgba(124, 58, 237, 0.7) 0%,
@@ -212,10 +140,10 @@
     rgba(59, 130, 246, 0.1) 60%,
     transparent 70%
   );
-
   filter: blur(20px);
   transform: translate(-50%, -50%);
   mix-blend-mode: screen;
+  will-change: transform;
 }
 
 @media (pointer: coarse) {
@@ -226,4 +154,13 @@
 
 p, h1, h2, h3, h4, h5, h6 {
   cursor: default;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
 }

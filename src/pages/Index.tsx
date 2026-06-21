@@ -1,31 +1,35 @@
+import { lazy, Suspense } from 'react';
 import Navbar from '@/components/Navbar';
 import Hero from '@/components/Hero';
-import About from '@/components/About';
-import Services from '@/components/Services';
-import Projects from '@/components/Projects';
-import Footer from '@/components/Footer';
 import CursorGlow from '@/components/CursorGlow';
+
+const About = lazy(() => import('@/components/About'));
+const Services = lazy(() => import('@/components/Services'));
+const Projects = lazy(() => import('@/components/Projects'));
+const Footer = lazy(() => import('@/components/Footer'));
 
 const Index = () => {
   return (
     <main className="relative">
       <Navbar />
       <CursorGlow />
-      <section id="hero">
+      <div id="hero">
         <Hero />
-      </section>
-      <section id="about">
-        <About />
-      </section>
-      <section id="services">
-        <Services />
-      </section>
-      <section id="projects">
-        <Projects />
-      </section>
-      <section id="footer">
-        <Footer />
-      </section>
+      </div>
+      <Suspense fallback={null}>
+        <div id="about">
+          <About />
+        </div>
+        <div id="services">
+          <Services />
+        </div>
+        <div id="projects">
+          <Projects />
+        </div>
+        <div id="footer">
+          <Footer />
+        </div>
+      </Suspense>
     </main>
   );
 };

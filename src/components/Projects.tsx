@@ -2,99 +2,92 @@ import { useEffect, useRef, useState, useCallback } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { Flip } from 'gsap/Flip';
-import { ArrowUpRight } from 'lucide-react';
 
 gsap.registerPlugin(ScrollTrigger, Flip);
 
-type CategoryFilter = 'all' | 'web' | 'design' | 'mobile' | 'branding';
+type CategoryFilter = 'all' | 'backend' | 'ia-automacao' | 'saas' | 'devops' | 'ecommerce';
 
 const categories: { id: CategoryFilter; label: string }[] = [
   { id: 'all', label: 'Todos' },
-  { id: 'web', label: 'Web' },
-  { id: 'design', label: 'Design' },
-  { id: 'branding', label: 'Branding' },
+  { id: 'backend', label: 'Backend / APIs' },
+  { id: 'ia-automacao', label: 'IA & Automação' },
+  { id: 'saas', label: 'SaaS' },
+  { id: 'devops', label: 'DevOps' },
+  { id: 'ecommerce', label: 'E-commerce' },
 ];
 
 const projects = [
   {
     id: 1,
-    title: 'VOID E-commerce',
-    category: 'web' as CategoryFilter,
-    categoryLabel: 'Web Development',
-    description: 'Loja online moderna para produtos de tecnologia e acessórios.',
-    image: 'https://i.pinimg.com/736x/69/c3/06/69c306f82a99b0ca27dc10ffe03fdd6a.jpg',
-    gradient: 'from-violet-500 to-blue-600',
-    link: 'https://elevate-studio-ten.vercel.app/',
+    title: 'AI Sales OS',
+    category: ['saas', 'ia-automacao', 'backend'] as CategoryFilter[],
+    categoryLabel: 'SaaS / IA',
+    description: 'SaaS B2B multi-tenant: CRM + pipeline Kanban + vendedor virtual de IA 24/7 via WhatsApp com RAG, lead scoring e fallback multi-LLM.',
+    stack: ['Node.js', 'TypeScript', 'PostgreSQL', 'pgvector', 'Redis', 'RabbitMQ', 'Terraform'],
+    // TODO: substituir por screenshot real
+    image: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=800&q=80',
+    gradient: 'from-violet-600/70 to-blue-600/70',
+    highlight: true,
   },
   {
     id: 2,
-    title: 'Creative Minds Portfolio',
-    category: 'design' as CategoryFilter,
-    categoryLabel: 'UI/UX Design',
-    description: 'Portfólio digital para designer gráfico e ilustrador.',
-    image: 'https://i.pinimg.com/736x/cb/b6/a6/cbb6a65bfc57081219ee692466dc0a79.jpg',
-    gradient: 'from-blue-500 to-cyan-500',
-    link: '#',
+    title: 'AI Customer Support OS',
+    category: ['saas', 'ia-automacao', 'backend'] as CategoryFilter[],
+    categoryLabel: 'SaaS / IA',
+    description: 'Plataforma de atendimento com IA: RAG com citação de fontes, quality score automático, billing Stripe, 45+ tabelas, testes E2E.',
+    stack: ['Node.js', 'Prisma', 'Socket.io', 'Playwright', 'Stripe', 'k6'],
+    // TODO: substituir por screenshot real
+    image: 'https://images.unsplash.com/photo-1596524430615-b46475ddff6e?w=800&q=80',
+    gradient: 'from-blue-600/70 to-cyan-500/70',
+    highlight: false,
   },
   {
     id: 3,
-    title: 'Landing Page',
-    category: 'web' as CategoryFilter,
-    categoryLabel: 'web Development',
-    description: 'Landing page criada para filmaker profissional',
-    image: 'https://i.pinimg.com/736x/56/57/10/565710943784f5c3b373f65f71dfd7e1.jpg',
-    gradient: 'from-pink-500 to-rose-500',
-    link: 'https://cinematic-canvas-sigma.vercel.app/',
+    title: 'Bot Command Center',
+    category: ['devops', 'backend'] as CategoryFilter[],
+    categoryLabel: 'DevOps',
+    description: 'Painel self-hosted para gerenciar bots via PM2: métricas em tempo real, terminal SSH no navegador, deploy via upload, alertas WhatsApp.',
+    stack: ['Node.js', 'WebSocket', 'PM2', 'OWASP ZAP', 'RBAC'],
+    // TODO: substituir por screenshot real
+    image: 'https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=800&q=80',
+    gradient: 'from-emerald-600/70 to-teal-500/70',
+    highlight: false,
   },
   {
     id: 4,
-    title: 'Pawsitive Care',
-    category: 'web' as CategoryFilter,
-    categoryLabel: 'web Development',
-    description: 'Identidade visual para clínica veterinária.',
-    image: 'https://i.pinimg.com/736x/d7/f2/1f/d7f21f6b860d8dd78154fe91e4cadc12.jpg',
-    gradient: 'from-green-500 to-green-500',
-    link: 'https://pawsitive-care-two.vercel.app/',
+    title: 'Bot Financeiro WhatsApp',
+    category: ['ia-automacao', 'backend'] as CategoryFilter[],
+    categoryLabel: 'Automação / Bot',
+    description: 'Bot de controle financeiro pessoal via WhatsApp em produção: saldo, cartões, parcelamento, relatórios com gráficos e exportação PDF.',
+    stack: ['Node.js', 'Baileys', 'PostgreSQL', 'Chart.js', 'PDFKit'],
+    // TODO: substituir por screenshot real
+    image: 'https://images.unsplash.com/photo-1554224155-6726b3ff858f?w=800&q=80',
+    gradient: 'from-amber-500/70 to-orange-500/70',
+    highlight: false,
   },
   {
     id: 5,
-    title: 'Elise Landing Page',
-    category: 'web' as CategoryFilter,
-    categoryLabel: 'Web Development',
-    description: 'Landing page vibrante para loja online.',
-    image: 'https://i.pinimg.com/736x/9a/5c/b4/9a5cb4b17eb49ed11ffc062659729ac6.jpg',
-    gradient: 'from-pink-500 to-pink-500',
-    link: 'https://radiant-bloom.vercel.app/',
+    title: 'WhatsApp Lead System',
+    category: ['ia-automacao', 'backend'] as CategoryFilter[],
+    categoryLabel: 'Backend / IA',
+    description: 'Captação de leads via WhatsApp com classificação automática por IA (intenção, sentimento, prioridade), API REST e Clean Architecture.',
+    stack: ['Node.js', 'MongoDB', 'OpenAI', 'Gemini', 'REST API'],
+    // TODO: substituir por screenshot real
+    image: 'https://images.unsplash.com/photo-1611746872915-64382b5c76da?w=800&q=80',
+    gradient: 'from-green-500/70 to-emerald-500/70',
+    highlight: false,
   },
   {
     id: 6,
-    title: 'Orçamento System',
-    category: 'web' as CategoryFilter,
-    categoryLabel: 'Web Development',
-    description: 'Sistema de orçamento rapido e eficiente',
-    image: 'https://i.pinimg.com/736x/c0/f4/ed/c0f4ed9d238df6682325c9cc153130ab.jpg',
-    gradient: 'from-blue-500 to-purple-500',
-    link: 'https://orcamento-rpido.vercel.app/',
-  },
-  {
-    id: 7,
-    title: 'Agenda Perfecta',
-    category: 'web' as CategoryFilter,
-    categoryLabel: 'Sistema Web',
-    description: 'Plataforma completa para barbearias e nail designers. Seus clientes agendam online.',
-    image: 'https://i.pinimg.com/736x/72/92/42/729242eb0b500263175398b5483e85cf.jpg',
-    gradient: 'from-yellow-500 to-amber-500',
-    link: 'https://agenda-perfecta-zeta.vercel.app/',
-  },
-  {
-    id: 8,
-    title: 'Restaurant Branding',
-    category: 'branding' as CategoryFilter,
-    categoryLabel: 'Branding',
-    description: 'Identidade visual para restaurante gourmet.',
-    image: 'https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=800&q=80',
-    gradient: 'from-yellow-500 to-amber-500',
-    link: '#',
+    title: 'R&M Náutica Solutions',
+    category: ['ecommerce', 'backend'] as CategoryFilter[],
+    categoryLabel: 'E-commerce',
+    description: 'E-commerce premium para empresa náutica real: checkout multi-step, Mercado Pago, cálculo de frete, upload Cloudinary, e-mails transacionais.',
+    stack: ['Next.js', 'TypeScript', 'Prisma', 'PostgreSQL', 'Mercado Pago'],
+    // TODO: substituir por screenshot real
+    image: 'https://images.unsplash.com/photo-1544551763-46a013bb70d5?w=800&q=80',
+    gradient: 'from-sky-600/70 to-blue-700/70',
+    highlight: false,
   },
 ];
 
@@ -103,6 +96,11 @@ const Projects = () => {
   const containerRef = useRef<HTMLDivElement>(null);
   const itemsRef = useRef<(HTMLElement | null)[]>([]);
   const [activeFilters, setActiveFilters] = useState<CategoryFilter[]>(['all']);
+  const [loadedImages, setLoadedImages] = useState<Set<number>>(new Set());
+
+  const handleImageLoad = useCallback((id: number) => {
+    setLoadedImages(prev => new Set(prev).add(id));
+  }, []);
 
   const updateFilters = useCallback((filter: CategoryFilter) => {
     const items = itemsRef.current.filter(Boolean) as HTMLElement[];
@@ -114,7 +112,7 @@ const Projects = () => {
       newFilters = ['all'];
     } else {
       const currentFilters = activeFilters.filter(f => f !== 'all');
-      
+
       if (currentFilters.includes(filter)) {
         newFilters = currentFilters.filter(f => f !== filter);
         if (newFilters.length === 0) {
@@ -127,103 +125,102 @@ const Projects = () => {
 
     setActiveFilters(newFilters);
 
-    // Determine which items should be visible
     const showAll = newFilters.includes('all');
-    
+
     items.forEach((item, index) => {
       const project = projects[index];
-      const shouldShow = showAll || newFilters.includes(project.category);
+      const shouldShow = showAll || newFilters.some(f => project.category.includes(f));
       item.style.display = shouldShow ? 'block' : 'none';
     });
 
-    // Animate with Flip
     Flip.from(state, {
-      duration: 0.7,
+      duration: 0.6,
       scale: true,
-      ease: 'power1.inOut',
-      stagger: 0.05,
+      ease: 'power2.inOut',
+      stagger: 0.04,
       absolute: true,
-      onEnter: elements => gsap.fromTo(elements, { opacity: 0, scale: 0 }, { opacity: 1, scale: 1, duration: 0.5 }),
-      onLeave: elements => gsap.to(elements, { opacity: 0, scale: 0, duration: 0.5 })
+      onEnter: elements => gsap.fromTo(elements, { opacity: 0, scale: 0.9 }, { opacity: 1, scale: 1, duration: 0.4 }),
+      onLeave: elements => gsap.to(elements, { opacity: 0, scale: 0.9, duration: 0.3 })
     });
   }, [activeFilters]);
 
   useEffect(() => {
-    const ctx = gsap.context(() => {
-      // Animate section header
-      gsap.fromTo(
-        '.projects-header',
-        { opacity: 0, y: 50 },
-        {
-          opacity: 1,
-          y: 0,
-          duration: 1,
-          ease: 'power3.out',
-          scrollTrigger: {
-            trigger: '.projects-header',
-            start: 'top 85%',
-            toggleActions: 'play none none reverse',
-          },
-        }
-      );
+    const mm = gsap.matchMedia();
 
-      // Animate filter buttons
-      gsap.fromTo(
-        '.filter-button',
-        { opacity: 0, y: 20 },
-        {
-          opacity: 1,
-          y: 0,
-          duration: 0.5,
-          stagger: 0.1,
-          ease: 'power3.out',
-          scrollTrigger: {
-            trigger: '.filters-container',
-            start: 'top 85%',
-            toggleActions: 'play none none reverse',
-          },
-        }
-      );
-
-      // Initial animation for project items
-      itemsRef.current.forEach((item, i) => {
-        if (!item) return;
-
+    mm.add("(prefers-reduced-motion: no-preference)", () => {
+      const ctx = gsap.context(() => {
         gsap.fromTo(
-          item,
-          { opacity: 0, y: 60, scale: 0.9 },
+          '.projects-header',
+          { opacity: 0, y: 40 },
           {
             opacity: 1,
             y: 0,
-            scale: 1,
             duration: 0.8,
-            delay: i * 0.1,
             ease: 'power3.out',
             scrollTrigger: {
-              trigger: containerRef.current,
-              start: 'top 80%',
+              trigger: '.projects-header',
+              start: 'top 85%',
               toggleActions: 'play none none reverse',
             },
           }
         );
-      });
-    }, sectionRef);
 
-    return () => ctx.revert();
+        gsap.fromTo(
+          '.filter-button',
+          { opacity: 0, y: 15 },
+          {
+            opacity: 1,
+            y: 0,
+            duration: 0.4,
+            stagger: 0.06,
+            ease: 'power3.out',
+            scrollTrigger: {
+              trigger: '.filters-container',
+              start: 'top 85%',
+              toggleActions: 'play none none reverse',
+            },
+          }
+        );
+
+        itemsRef.current.forEach((item, i) => {
+          if (!item) return;
+
+          gsap.fromTo(
+            item,
+            { opacity: 0, y: 50, scale: 0.95 },
+            {
+              opacity: 1,
+              y: 0,
+              scale: 1,
+              duration: 0.7,
+              delay: i * 0.08,
+              ease: 'power3.out',
+              scrollTrigger: {
+                trigger: containerRef.current,
+                start: 'top 82%',
+                toggleActions: 'play none none reverse',
+              },
+            }
+          );
+        });
+      }, sectionRef);
+
+      return () => ctx.revert();
+    });
+
+    return () => mm.revert();
   }, []);
 
   const isFilterActive = (filter: CategoryFilter) => {
-    if (filter === 'all') {
-      return activeFilters.includes('all');
-    }
+    if (filter === 'all') return activeFilters.includes('all');
     return activeFilters.includes(filter) && !activeFilters.includes('all');
   };
 
   return (
-    <section ref={sectionRef} className="relative py-32 md:py-4">
+    <section ref={sectionRef} className="relative py-24 md:py-32">
       <div className="max-w-7xl mx-auto px-6">
-        <div className="projects-header mb-12 md:mb-16">
-          <span className="text-blue-500 text-sm tracking-widest uppercase">
+        <div className="projects-header mb-14">
+          <span className="text-primary text-sm tracking-[0.2em] uppercase font-medium">
             Portfólio
           </span>
           <h2 className="text-4xl md:text-5xl font-bold mt-4 text-white">
@@ -231,68 +228,80 @@ const Projects = () => {
           </h2>
         </div>
 
-        {/* Filter Buttons */}
-        <div className="filters-container flex flex-wrap justify-center gap-3 mb-12 md:mb-16">
+        <div className="filters-container flex flex-wrap justify-start gap-2 mb-12">
           {categories.map((cat) => (
             <button
               key={cat.id}
               onClick={() => updateFilters(cat.id)}
-              className={`filter-button relative px-6 py-2.5 rounded-full text-sm font-medium transition-all duration-300 border overflow-hidden
+              className={`filter-button relative px-5 py-2 rounded-full text-sm font-medium transition-all duration-300 border
                 ${isFilterActive(cat.id)
-                  ? 'bg-blue-600 text-white border-blue-600 shadow-lg shadow-blue-600/25'
-                  : 'bg-transparent text-gray-300 border-gray-700 hover:border-blue-500 hover:text-blue-400'
+                  ? 'bg-primary text-white border-primary shadow-lg shadow-primary/20'
+                  : 'bg-transparent text-muted-foreground border-border hover:border-primary/50 hover:text-foreground'
                 }`}
             >
-              <span className="relative z-10">{cat.label}</span>
+              {cat.label}
             </button>
           ))}
         </div>
 
-        {/* Projects Grid */}
-        <div 
+        <div
           ref={containerRef}
-          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6"
+          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5"
         >
           {projects.map((project, index) => (
-            <a
+            <div
               key={project.id}
-              href={project.link}
-              target="_blank"
-              rel="noopener noreferrer"
               ref={(el) => (itemsRef.current[index] = el)}
-              className="group cursor-pointer block"
+              className="group block"
             >
-              <div className="relative overflow-hidden rounded-2xl border border-border bg-card transition-all duration-500 group-hover:border-primary/50 group-hover:shadow-xl group-hover:shadow-primary/10">
-                {/* Image with Gradient Overlay */}
-                <div className="relative aspect-[4/3] overflow-hidden">
-                  <div className={`absolute inset-0 bg-gradient-to-br ${project.gradient} opacity-60 z-10 transition-opacity duration-500 group-hover:opacity-40`} />
+              <div className={`relative overflow-hidden rounded-2xl border bg-card transition-all duration-400 group-hover:shadow-2xl group-hover:shadow-primary/8 group-hover:-translate-y-1.5 ${project.highlight ? 'border-primary/30' : 'border-border'} group-hover:border-primary/40`}>
+                <div className="relative aspect-[16/10] overflow-hidden">
+                  <div className={`absolute inset-0 bg-gradient-to-br ${project.gradient} z-10 transition-opacity duration-500 group-hover:opacity-30`} />
+
+                  {!loadedImages.has(project.id) && (
+                    <div className="absolute inset-0 z-[5] bg-card animate-pulse" />
+                  )}
+
                   <img
                     src={project.image}
-                    alt={project.title}
-                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                    alt={`${project.title}: ${project.description}`}
+                    className="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
+                    loading="lazy"
+                    decoding="async"
+                    onLoad={() => handleImageLoad(project.id)}
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-gray-900 via-gray-900/50 to-transparent z-20" />
-                  
-                  {/* Hover Arrow */}
-                  <div className="absolute top-4 right-4 z-30 w-10 h-10 rounded-full bg-white/10 backdrop-blur-sm flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-300 transform translate-x-4 group-hover:translate-x-0">
-                    <ArrowUpRight className="w-5 h-5 text-white" />
-                  </div>
+                  <div className="absolute inset-0 bg-gradient-to-t from-card via-card/40 to-transparent z-20" />
+
+                  {project.highlight && (
+                    <div className="absolute top-3 left-3 z-30 px-2.5 py-1 rounded-full bg-primary/90 text-[10px] font-semibold text-white uppercase tracking-wider backdrop-blur-sm">
+                      Destaque
+                    </div>
+                  )}
                 </div>
 
-                {/* Content */}
-                <div className="relative z-30 p-5 -mt-12">
-                  <span className="inline-block px-3 py-1 text-xs tracking-wider uppercase font-medium bg-blue-500/20 text-blue-400 rounded-full mb-3">
+                <div className="relative z-30 p-5 -mt-8">
+                  <span className="inline-block px-2.5 py-1 text-[11px] tracking-wider uppercase font-medium bg-primary/15 text-primary rounded-full mb-3">
                     {project.categoryLabel}
                   </span>
-                  <h3 className="text-lg font-bold mb-2 text-white group-hover:text-blue-400 transition-colors">
+                  <h3 className="text-lg font-bold mb-2 text-foreground group-hover:text-primary transition-colors duration-300">
                     {project.title}
                   </h3>
-                  <p className="text-gray-400 text-sm line-clamp-2">
+                  <p className="text-muted-foreground text-sm leading-relaxed line-clamp-2 mb-4">
                     {project.description}
                   </p>
+                  <div className="flex flex-wrap gap-1.5">
+                    {project.stack.map((tech) => (
+                      <span
+                        key={tech}
+                        className="px-2 py-0.5 text-[10px] font-medium rounded-md bg-muted text-muted-foreground"
+                      >
+                        {tech}
+                      </span>
+                    ))}
+                  </div>
                 </div>
               </div>
-            </a>
+            </div>
           ))}
         </div>
       </div>
