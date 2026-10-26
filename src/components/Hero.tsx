@@ -116,7 +116,7 @@ const Hero = () => {
           style={{ clipPath: 'url(#recorte-p)', backgroundColor: ROXO }}
         >
           <div ref={conteudo} className="relative z-10 mx-auto grid w-full max-w-6xl grid-cols-12 items-center gap-x-8 gap-y-8 px-6 opacity-0">
-            <div className="col-span-12 md:col-span-10">
+            <div className="col-span-12 md:col-span-8">
               <p className="font-mono text-xs uppercase tracking-[0.2em] text-muted-foreground">
                 <span className="mr-2 inline-block h-1.5 w-1.5 rounded-full bg-primary align-middle" />
                 {perfil.hero.etiqueta}
@@ -147,6 +147,14 @@ const Hero = () => {
               </div>
             </div>
 
+
+            <img
+              src="/logo.svg"
+              alt="Logo devaqn, as letras FS"
+              width={320}
+              height={320}
+              className="col-span-5 row-start-1 w-full max-w-[96px] justify-self-start rounded-[28%] shadow-[0_18px_60px_rgba(124,77,255,0.35)] md:col-span-4 md:row-start-auto md:max-w-[280px] md:justify-self-end"
+            />
           </div>
         </div>
 
