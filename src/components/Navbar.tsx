@@ -1,172 +1,127 @@
-import { useEffect, useRef, useState, useCallback } from "react";
-import gsap from "gsap";
-import { Menu, X } from "lucide-react";
-import { WHATSAPP_URL } from "@/lib/constants";
+import { useEffect, useRef, useState } from 'react'
+import { Menu, X } from 'lucide-react'
+import { perfil } from '@/content/perfil'
 
-const navLinks = [
-  { label: "Início", href: "#hero" },
-  { label: "Sobre", href: "#about" },
-  { label: "Serviços", href: "#services" },
-  { label: "Projetos", href: "#projects" },
-  { label: "Contato", href: "#footer" },
-];
+const links = [
+  { rotulo: 'sobre', id: 'sobre' },
+  { rotulo: 'trabalhos', id: 'trabalho' },
+  { rotulo: 'números', id: 'git' },
+  { rotulo: 'como ajudo', id: 'faco' },
+  { rotulo: 'contato', id: 'contato' },
+]
 
 const Navbar = () => {
-  const navRef = useRef<HTMLDivElement>(null);
-  const mobileMenuRef = useRef<HTMLDivElement>(null);
-  const [isOpen, setIsOpen] = useState(false);
-  const [isScrolled, setIsScrolled] = useState(false);
+  const [aberto, setAberto] = useState(false)
+  const [ativo, setAtivo] = useState<string | null>(null)
+  const progresso = useRef<HTMLDivElement>(null)
 
+  // Marca no menu a seção que está na altura do meio da tela.
   useEffect(() => {
-    const ctx = gsap.context(() => {
-      gsap.fromTo(
-        navRef.current,
-        { y: -40, opacity: 0 },
-        { y: 0, opacity: 1, duration: 1, delay: 0.4, ease: "power3.out" },
-      );
-    });
+    const observador = new IntersectionObserver(
+      (entradas) => {
+        entradas.forEach((e) => {
+          if (e.isIntersecting) setAtivo(e.target.id)
+        })
+      },
+      { rootMargin: '-45% 0px -50% 0px' },
+    )
+    links.forEach((l) => {
+      const el = document.getElementById(l.id)
+      if (el) observador.observe(el)
+    })
+    return () => observador.disconnect()
+  }, [])
 
-    let ticking = false;
-    const handleScroll = () => {
-      if (ticking) return;
-      ticking = true;
-      requestAnimationFrame(() => {
-        setIsScrolled(window.scrollY > 40);
-        ticking = false;
-      });
-    };
-
-    window.addEventListener("scroll", handleScroll, { passive: true });
-    return () => {
-      ctx.revert();
-      window.removeEventListener("scroll", handleScroll);
-    };
-  }, []);
-
+  // Fio fino no pé da barra que acompanha o quanto da página já foi lido.
   useEffect(() => {
-    if (!mobileMenuRef.current) return;
-
-    if (isOpen) {
-      gsap.fromTo(
-        mobileMenuRef.current,
-        { height: 0, opacity: 0 },
-        { height: "auto", opacity: 1, duration: 0.35, ease: "power3.out" },
-      );
-    } else {
-      gsap.to(mobileMenuRef.current, {
-        height: 0,
-        opacity: 0,
-        duration: 0.25,
-        ease: "power3.in",
-      });
+    let pendente = false
+    const atualizar = () => {
+      pendente = false
+      const total = document.documentElement.scrollHeight - window.innerHeight
+      const p = total > 0 ? Math.min(1, window.scrollY / total) : 0
+      if (progresso.current) progresso.current.style.transform = `scaleX(${p})`
     }
-  }, [isOpen]);
-
-  const handleNavClick = useCallback(
-    (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
-      e.preventDefault();
-      document.querySelector(href)?.scrollIntoView({ behavior: "smooth" });
-      setIsOpen(false);
-    },
-    [],
-  );
+    const aoRolar = () => {
+      if (pendente) return
+      pendente = true
+      requestAnimationFrame(atualizar)
+    }
+    atualizar()
+    window.addEventListener('scroll', aoRolar, { passive: true })
+    window.addEventListener('resize', aoRolar, { passive: true })
+    return () => {
+      window.removeEventListener('scroll', aoRolar)
+      window.removeEventListener('resize', aoRolar)
+    }
+  }, [])
 
   return (
-    <nav
-      className="fixed top-6 left-0 right-0 z-50 flex justify-center pointer-events-none"
-      role="navigation"
-      aria-label="Navegação principal"
-    >
-      <div
-        ref={navRef}
-        className={`
-          pointer-events-auto
-          w-[calc(100%-2rem)]
-          max-w-5xl
-          px-6 py-4
-          rounded-2xl
-          border
-          transition-all duration-300
-          ${
-            isScrolled
-              ? "bg-background/70 backdrop-blur-xl border-border shadow-lg"
-              : "bg-background/40 backdrop-blur-md border-border/40"
-          }
-        `}
-      >
-        <div className="flex items-center justify-between">
-          <a href="#hero" className="text-xl font-bold text-gradient">
-            DEVAQN
-          </a>
+    <header className="fixed inset-x-0 top-0 z-50 border-b border-border/70 bg-background/80 backdrop-blur-md">
+      <nav className="mx-auto flex h-14 max-w-6xl items-center justify-between px-6" aria-label="Navegação principal">
+        <a href="#inicio" className="flex items-center gap-2.5 font-mono text-sm font-medium tracking-tight" aria-label={`${perfil.handle}, início`}>
+          <img src="/favicon.svg" alt="" width={26} height={26} className="h-[26px] w-[26px]" />
+          <span>
+            {perfil.handle}
+            <span className="text-primary">_</span>
+          </span>
+        </a>
 
-          <div className="hidden md:flex items-center gap-8">
-            {navLinks.map((link) => (
+        <ul className="hidden items-center gap-7 font-mono text-[13px] md:flex">
+          {links.map((l) => (
+            <li key={l.id}>
               <a
-                key={link.label}
-                href={link.href}
-                onClick={(e) => handleNavClick(e, link.href)}
-                className="text-sm text-muted-foreground hover:text-foreground transition-colors duration-200 relative after:absolute after:bottom-[-4px] after:left-0 after:h-[2px] after:w-0 after:bg-primary after:transition-all after:duration-300 hover:after:w-full"
+                href={`#${l.id}`}
+                aria-current={ativo === l.id ? 'true' : undefined}
+                className={`transition-colors hover:text-foreground ${ativo === l.id ? 'text-primary' : 'text-muted-foreground'}`}
               >
-                {link.label}
+                {l.rotulo}
               </a>
-            ))}
+            </li>
+          ))}
+        </ul>
 
-            <a href={WHATSAPP_URL} target="_blank" rel="noopener noreferrer">
-              <button
-                aria-label="Entre em contato via WhatsApp"
-                className="px-5 py-2 text-white font-semibold text-sm rounded-full transition-all duration-300 bg-transparent border-2 border-violet-600 hover:scale-105 hover:border-violet-400 hover:shadow-[0_0_20px_rgba(139,92,246,0.3)] focus:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-background"
-              >
-                Entre Em Contato
-              </button>
-            </a>
-          </div>
-
-          <button
-            onClick={() => setIsOpen(!isOpen)}
-            aria-label={isOpen ? "Fechar menu" : "Abrir menu"}
-            aria-expanded={isOpen}
-            className="md:hidden w-10 h-10 rounded-lg border border-border bg-background/60 backdrop-blur flex items-center justify-center transition-colors hover:bg-background/80"
-          >
-            {isOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
-          </button>
-        </div>
-
-        <div
-          ref={mobileMenuRef}
-          className="md:hidden overflow-hidden"
-          style={{ height: 0, opacity: 0 }}
+        <a
+          href={perfil.links.whatsapp}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="hidden border-b border-foreground/40 pb-0.5 text-[13px] font-medium transition-colors hover:border-primary hover:text-primary md:inline"
         >
-          <div className="pt-4 mt-4 border-t border-border/50">
-            <div className="flex flex-col gap-4">
-              {navLinks.map((link) => (
-                <a
-                  key={link.label}
-                  href={link.href}
-                  onClick={(e) => handleNavClick(e, link.href)}
-                  className="text-base text-muted-foreground hover:text-foreground transition-colors"
-                >
-                  {link.label}
-                </a>
-              ))}
-            </div>
-            <a
-              href={WHATSAPP_URL}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-block mt-4"
-            >
-              <button
-                aria-label="Entre em contato via WhatsApp"
-                className="px-5 py-2 text-white font-semibold text-sm rounded-full transition-all duration-300 bg-transparent border-2 border-violet-600 hover:scale-105 hover:border-violet-400 hover:shadow-[0_0_20px_rgba(139,92,246,0.3)] focus:outline-none focus-visible:ring-2 focus-visible:ring-primary"
-              >
-                Entre Em Contato
-              </button>
-            </a>
-          </div>
-        </div>
-      </div>
-    </nav>
-  );
-};
+          WhatsApp
+        </a>
 
-export default Navbar;
+        <button
+          type="button"
+          onClick={() => setAberto((v) => !v)}
+          aria-label={aberto ? 'Fechar menu' : 'Abrir menu'}
+          aria-expanded={aberto}
+          aria-controls="menu-movel"
+          className="-mr-2 flex h-10 w-10 items-center justify-center md:hidden"
+        >
+          {aberto ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
+        </button>
+      </nav>
+
+      {aberto ? (
+        <div id="menu-movel" className="border-t border-border bg-background px-6 pb-5 pt-2 md:hidden">
+          <ul className="font-mono text-base">
+            {links.map((l) => (
+              <li key={l.id}>
+                <a
+                  href={`#${l.id}`}
+                  onClick={() => setAberto(false)}
+                  className={`block border-b border-border/60 py-3 ${ativo === l.id ? 'text-primary' : 'text-foreground'}`}
+                >
+                  {l.rotulo}
+                </a>
+              </li>
+            ))}
+          </ul>
+        </div>
+      ) : null}
+
+      <div ref={progresso} className="absolute bottom-[-1px] left-0 h-px w-full origin-left bg-primary" style={{ transform: 'scaleX(0)' }} aria-hidden="true" />
+    </header>
+  )
+}
+
+export default Navbar

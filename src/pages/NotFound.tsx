@@ -1,24 +1,21 @@
-import { useLocation } from "react-router-dom";
-import { useEffect } from "react";
+import { perfil } from '@/content/perfil'
 
-const NotFound = () => {
-  const location = useLocation();
-
-  useEffect(() => {
-    console.error("404 Error: User attempted to access non-existent route:", location.pathname);
-  }, [location.pathname]);
-
-  return (
-    <div className="flex min-h-screen items-center justify-center bg-muted">
-      <div className="text-center">
-        <h1 className="mb-4 text-4xl font-bold">404</h1>
-        <p className="mb-4 text-xl text-muted-foreground">Oops! Page not found</p>
-        <a href="/" className="text-primary underline hover:text-primary/90">
-          Return to Home
-        </a>
-      </div>
+const NotFound = () => (
+  <main className="flex min-h-screen items-center px-6">
+    <div className="mx-auto w-full max-w-6xl">
+      <p className="font-mono text-xs uppercase tracking-[0.18em] text-muted-foreground">
+        <span className="text-primary">404</span> / página não encontrada
+      </p>
+      <h1 className="mt-4 max-w-3xl text-balance text-5xl font-bold leading-[1.02] tracking-tight md:text-7xl">Essa página não existe.</h1>
+      <p className="mt-6 max-w-xl text-lg text-muted-foreground">O endereço pode ter mudado ou ter um erro de digitação.</p>
+      <a
+        href="/"
+        className="mt-10 inline-flex rounded-md bg-foreground px-6 py-3 text-sm font-semibold text-background transition-colors hover:bg-primary"
+      >
+        Voltar para {perfil.handle}
+      </a>
     </div>
-  );
-};
+  </main>
+)
 
-export default NotFound;
+export default NotFound

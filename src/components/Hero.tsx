@@ -1,218 +1,154 @@
-import { useEffect, useRef } from "react";
-import gsap from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { ChevronDown } from "lucide-react";
-import { WHATSAPP_URL } from "@/lib/constants";
+import { useEffect, useRef } from 'react'
+import gsap from 'gsap'
+import { ScrollTrigger } from 'gsap/ScrollTrigger'
+import { ArrowDown, ArrowUpRight } from 'lucide-react'
+import { perfil } from '@/content/perfil'
+import { CONDICOES, deveAnimar } from '@/lib/movimento'
 
-gsap.registerPlugin(ScrollTrigger);
+gsap.registerPlugin(ScrollTrigger)
 
+const ROXO = '#7c3aed'
+const FUNDO = '#0a0a0d'
+
+/**
+ * A abertura é um "P" que cresce até virar a página. O P é um clip-path
+ * escalado pelo GSAP: começa pequeno e violeta e termina maior que a tela,
+ * quando a cor de dentro já virou a do fundo e o conteúdo aparece.
+ */
 const Hero = () => {
-  const heroSectionRef = useRef<HTMLElement>(null);
-  const heroContainerRef = useRef<HTMLDivElement>(null);
-  const heroContentRef = useRef<HTMLDivElement>(null);
-  const heroBgRef = useRef<SVGSVGElement>(null);
-  const logoPathRef = useRef<SVGPathElement>(null);
-  const scrollIndicatorRef = useRef<HTMLDivElement>(null);
+  const secao = useRef<HTMLElement>(null)
+  const recorte = useRef<HTMLDivElement>(null)
+  const conteudo = useRef<HTMLDivElement>(null)
+  const letra = useRef<SVGPathElement>(null)
+  const dica = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
-    if (
-      !heroSectionRef.current ||
-      !heroContainerRef.current ||
-      !heroContentRef.current ||
-      !heroBgRef.current ||
-      !logoPathRef.current
-    )
-      return;
+    if (!secao.current || !recorte.current || !conteudo.current || !letra.current) return
 
-    const mm = gsap.matchMedia();
+    const mm = gsap.matchMedia()
 
-    mm.add("(prefers-reduced-motion: no-preference)", () => {
-      let heightRatio = window.innerWidth / window.innerHeight;
+    mm.add(CONDICOES, (ctx) => {
+      if (!deveAnimar(ctx)) {
+        gsap.set(recorte.current, { backgroundColor: FUNDO })
+        gsap.set(letra.current, { scaleX: 60, scaleY: 60, transformOrigin: '50% 50%' })
+        gsap.set(conteudo.current, { autoAlpha: 1, y: 0 })
+        return
+      }
+
+      let proporcao = window.innerWidth / window.innerHeight
 
       const tl = gsap.timeline({
         scrollTrigger: {
-          trigger: heroSectionRef.current,
-          start: "top top",
-          end: "+=200%",
+          trigger: secao.current,
+          start: 'top top',
+          end: '+=170%',
           pin: true,
-          scrub: 0,
+          scrub: 0.3,
           invalidateOnRefresh: true,
         },
-      });
+      })
 
       tl.fromTo(
-        logoPathRef.current,
-        {
-          scaleX: 0.15,
-          scaleY: () => 0.15 * heightRatio,
-          transformOrigin: "50% 50%",
-        },
-        {
-          scaleX: 60,
-          scaleY: () => 60 * heightRatio,
-          transformOrigin: "50% 50%",
-          duration: 1,
-          ease: "power2.inOut",
-        },
+        letra.current,
+        { scaleX: 0.15, scaleY: () => 0.15 * proporcao, transformOrigin: '50% 50%' },
+        { scaleX: 60, scaleY: () => 60 * proporcao, transformOrigin: '50% 50%', duration: 1, ease: 'power2.inOut' },
       )
-        .to({}, { duration: 0.2 })
+        .to(recorte.current, { backgroundColor: FUNDO, duration: 0.35, ease: 'none' }, 0.45)
         .fromTo(
-          heroContentRef.current,
-          { autoAlpha: 0, y: 40 },
-          {
-            autoAlpha: 1,
-            y: 0,
-            duration: 0.6,
-            ease: "power3.out",
-          },
+          conteudo.current,
+          { autoAlpha: 0, y: 36 },
+          { autoAlpha: 1, y: 0, duration: 0.5, ease: 'power3.out' },
+          '>-0.05',
         )
-        .to({}, { duration: 0.05 });
+        .to({}, { duration: 0.15 })
 
-      const handleResize = () => {
-        heightRatio = window.innerWidth / window.innerHeight;
-      };
+      const aoRedimensionar = () => {
+        proporcao = window.innerWidth / window.innerHeight
+      }
+      window.addEventListener('resize', aoRedimensionar, { passive: true })
 
-      window.addEventListener("resize", handleResize, { passive: true });
-
-      const ctx2 = gsap.context(() => {
-        gsap.timeline({
-          scrollTrigger: {
-            trigger: heroSectionRef.current,
-            start: "bottom bottom",
-            end: "+=40%",
-            scrub: true,
-          },
-        }).to(heroContainerRef.current, {
-          scale: 0.96,
-          opacity: 0.85,
-          ease: "none",
-        });
-      });
-
-      if (scrollIndicatorRef.current) {
-        gsap.to(scrollIndicatorRef.current, {
-          y: 8,
-          repeat: -1,
-          yoyo: true,
-          duration: 1.5,
-          ease: "sine.inOut",
-        });
+      if (dica.current) {
+        gsap.to(dica.current, { y: 6, repeat: -1, yoyo: true, duration: 1.4, ease: 'sine.inOut' })
       }
 
       return () => {
-        tl.kill();
-        ctx2.revert();
-        ScrollTrigger.getAll().forEach((st) => st.kill());
-        window.removeEventListener("resize", handleResize);
-      };
-    });
+        tl.scrollTrigger?.kill()
+        tl.kill()
+        window.removeEventListener('resize', aoRedimensionar)
+      }
+    })
 
-    mm.add("(prefers-reduced-motion: reduce)", () => {
-      gsap.set(heroContentRef.current, { autoAlpha: 1, y: 0 });
-      gsap.set(logoPathRef.current, {
-        scaleX: 60,
-        scaleY: 60,
-        transformOrigin: "50% 50%",
-      });
-    });
-
-    return () => mm.revert();
-  }, []);
+    return () => mm.revert()
+  }, [])
 
   return (
     <>
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        width="0"
-        height="0"
-        className="absolute top-0 left-0 pointer-events-none z-0"
-        aria-hidden="true"
-      >
-        <defs>
-          <linearGradient id="purpleGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-            <stop offset="0%" stopColor="#8b5cf6" />
-            <stop offset="50%" stopColor="#7c3aed" />
-            <stop offset="100%" stopColor="#7c3aed" />
-          </linearGradient>
-        </defs>
-
-        <clipPath id="clip-path1" clipPathUnits="objectBoundingBox">
+      <svg width="0" height="0" className="pointer-events-none absolute left-0 top-0" aria-hidden="true">
+        <clipPath id="recorte-p" clipPathUnits="objectBoundingBox">
           <path
-            ref={logoPathRef}
+            ref={letra}
             d="M 0.23,0.10 L 0.23,0.90 L 0.43,0.90 L 0.43,0.58 L 0.59,0.58 Q 0.72,0.58 0.79,0.51 Q 0.86,0.44 0.86,0.34 Q 0.86,0.24 0.79,0.17 Q 0.72,0.10 0.59,0.10 Z M 0.43,0.25 L 0.59,0.25 Q 0.66,0.25 0.69,0.28 Q 0.72,0.31 0.72,0.34 Q 0.72,0.37 0.69,0.40 Q 0.66,0.43 0.59,0.43 L 0.43,0.43 Z"
           />
         </clipPath>
       </svg>
 
-      <section
-        ref={heroSectionRef}
-        className="hero-section relative w-full h-screen min-h-screen flex items-center justify-center overflow-hidden z-[1]"
-      >
+      <section ref={secao} className="relative z-[1] flex h-[100svh] min-h-[560px] w-full items-center justify-center overflow-hidden">
         <div
-          ref={heroContainerRef}
-          className="hero-container w-full h-screen relative flex justify-center items-center overflow-hidden will-change-transform"
-          style={{
-            clipPath: "url(#clip-path1)",
-            background: "linear-gradient(135deg, #8b5cf6 0%, #7c3aed 50%, #7c3aed 100%)",
-          }}
+          ref={recorte}
+          className="relative flex h-full w-full items-center will-change-transform"
+          style={{ clipPath: 'url(#recorte-p)', backgroundColor: ROXO }}
         >
-          <svg
-            ref={heroBgRef}
-            className="absolute inset-0 w-full h-full z-0"
-            viewBox="0 0 1200 900"
-            preserveAspectRatio="xMidYMid slice"
-            xmlns="http://www.w3.org/2000/svg"
-            aria-hidden="true"
-          >
-            <image
-              href="/hero/backgroundHeroContent.jpg"
-              x="0"
-              y="0"
-              width="1200"
-              height="900"
-              preserveAspectRatio="xMidYMid slice"
-            />
-            <rect width="100%" height="100%" fill="rgba(0,0,0,0.4)" />
-          </svg>
+          <div ref={conteudo} className="relative z-10 mx-auto grid w-full max-w-6xl grid-cols-12 items-center gap-x-8 gap-y-8 px-6 opacity-0">
+            <div className="col-span-12 md:col-span-8">
+              <p className="font-mono text-xs uppercase tracking-[0.2em] text-muted-foreground">
+                <span className="mr-2 inline-block h-1.5 w-1.5 rounded-full bg-primary align-middle" />
+                {perfil.hero.etiqueta}
+              </p>
+              <h1 className="mt-5 text-[clamp(3.4rem,12.5vw,10.5rem)] font-bold leading-[0.86] tracking-tighter text-foreground">
+                Pedro
+                <br />
+                Miguel
+              </h1>
+              <p className="mt-7 max-w-xl text-pretty text-lg leading-relaxed text-foreground/75 md:text-xl">{perfil.hero.resumo}</p>
+              <div className="mt-9 flex flex-wrap items-center gap-x-8 gap-y-4">
+                <a
+                  href="#trabalho"
+                  className="inline-flex items-center gap-2 rounded-md bg-foreground px-6 py-3 text-sm font-semibold text-background transition-colors hover:bg-primary"
+                >
+                  Ver o que construí
+                  <ArrowDown className="h-4 w-4" aria-hidden="true" />
+                </a>
+                <a
+                  href={perfil.links.whatsapp}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-1.5 border-b border-foreground/40 pb-0.5 text-sm font-medium transition-colors hover:border-primary hover:text-primary"
+                >
+                  Falar no WhatsApp
+                  <ArrowUpRight className="h-4 w-4" aria-hidden="true" />
+                </a>
+              </div>
+            </div>
 
-          <div
-            ref={heroContentRef}
-            className="relative z-10 text-center px-6 opacity-0 max-w-5xl"
-          >
-            <p className="text-sm sm:text-base tracking-[0.3em] uppercase text-white/60 mb-4 font-medium">
-              Back-End Developer
-            </p>
-            <h1 className="text-5xl sm:text-7xl md:text-8xl lg:text-9xl xl:text-[10rem] font-bold tracking-tighter leading-[0.85] text-[hsl(215_90%_60%)]">
-              Pedro
-              <br />
-              Miguel
-            </h1>
-            <p className="mt-6 text-base sm:text-lg md:text-xl text-white/80 font-light tracking-wide max-w-xl mx-auto text-balance">
-              APIs, Automação e Sistemas com Inteligência Artificial
-            </p>
-            <a href={WHATSAPP_URL} target="_blank" rel="noopener noreferrer">
-              <button
-                aria-label="Entre em contato via WhatsApp"
-                className="px-8 py-3 mt-10 text-white font-semibold text-base rounded-full transition-all duration-300 bg-transparent border-2 border-white/20 hover:border-violet-500 hover:scale-105 hover:shadow-[0_0_30px_rgba(124,58,237,0.4)] focus:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-background backdrop-blur-sm"
-              >
-                Entre Em Contato
-              </button>
-            </a>
+            <figure className="col-span-5 row-start-1 m-0 md:col-span-4 md:row-start-auto md:flex md:flex-col md:items-end">
+              <img
+                src={perfil.foto}
+                alt={perfil.fotoAlt}
+                width={640}
+                height={800}
+                className="aspect-[4/5] w-full max-w-[150px] rounded-sm border border-border object-cover md:max-w-[300px]"
+              />
+              <figcaption className="mt-3 font-mono text-[11px] text-muted-foreground">github.com/{perfil.handle}</figcaption>
+            </figure>
           </div>
         </div>
 
-        <div
-          ref={scrollIndicatorRef}
-          className="absolute bottom-8 left-1/2 -translate-x-1/2 z-30 flex flex-col items-center gap-1 text-white/30"
-        >
-          <span className="text-[10px] tracking-[0.25em] uppercase font-medium">Scroll</span>
-          <ChevronDown className="w-4 h-4" />
+        <div ref={dica} className="absolute bottom-6 left-1/2 z-20 -translate-x-1/2 text-muted-foreground/60" aria-hidden="true">
+          <ArrowDown className="h-4 w-4" />
         </div>
       </section>
-
-      <div className="hero-transition-overlay absolute bottom-0 left-0 w-full h-64 pointer-events-none z-20" />
     </>
-  );
-};
+  )
+}
 
-export default Hero;
+export default Hero

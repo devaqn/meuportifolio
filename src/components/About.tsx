@@ -1,137 +1,87 @@
-import { useEffect, useRef, useMemo } from 'react';
-import gsap from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { useEffect, useRef } from 'react'
+import gsap from 'gsap'
+import { ScrollTrigger } from 'gsap/ScrollTrigger'
+import { perfil } from '@/content/perfil'
+import { useReveal } from '@/hooks/useReveal'
+import { CONDICOES, deveAnimar } from '@/lib/movimento'
 
-gsap.registerPlugin(ScrollTrigger);
-
-const aboutTexts = [
-  "Construo APIs, automações e integrações com IA que resolvem problemas reais de negócios — do protótipo à produção.",
-
-  "Node.js, PostgreSQL, bots de WhatsApp e infraestrutura Linux. Arquiteturas escaláveis, automações inteligentes, sistemas que não caem.",
-
-  "Microsserviços, filas, RAG com LLMs, segurança e infraestrutura como código. Do deploy ao monitoramento, cuido de todo o ciclo."
-];
-
-const splitIntoLines = (text: string) => {
-  const words = text.split(' ');
-  const lines: string[] = [];
-  let currentLine = '';
-
-  for (const word of words) {
-    const testLine = currentLine ? currentLine + ' ' + word : word;
-    if (testLine.length > 45) {
-      if (currentLine) lines.push(currentLine);
-      currentLine = word;
-    } else {
-      currentLine = testLine;
-    }
-  }
-
-  if (currentLine) lines.push(currentLine);
-  return lines;
-};
+gsap.registerPlugin(ScrollTrigger)
 
 const About = () => {
-  const sectionRef = useRef<HTMLDivElement>(null);
-  const containerRefs = useRef<(HTMLDivElement | null)[]>([]);
+  const raiz = useRef<HTMLElement>(null)
+  const frase = useRef<HTMLHeadingElement>(null)
+  useReveal(raiz)
 
-  const lines = useMemo(() => aboutTexts.map(splitIntoLines), []);
-
+  // A frase acende palavra por palavra enquanto a pessoa rola.
   useEffect(() => {
-    const mm = gsap.matchMedia();
-
-    mm.add("(prefers-reduced-motion: no-preference)", () => {
-      const ctx = gsap.context(() => {
-        containerRefs.current.forEach((container) => {
-          if (!container) return;
-
-          const wrappers = container.querySelectorAll('.line-wrapper');
-
-          gsap.fromTo(
-            wrappers,
-            { yPercent: 120, opacity: 0 },
-            {
-              yPercent: 0,
-              opacity: 1,
-              stagger: 0.08,
-              ease: 'power3.out',
-              scrollTrigger: {
-                trigger: container,
-                start: 'top 82%',
-                end: 'bottom 55%',
-                scrub: 1,
-              },
-            }
-          );
-        });
-
-        gsap.fromTo(
-          sectionRef.current,
-          { y: 80, opacity: 0 },
-          {
-            y: 0,
-            opacity: 1,
-            ease: 'power3.out',
-            scrollTrigger: {
-              trigger: sectionRef.current,
-              start: 'top bottom',
-              end: 'top 70%',
-              scrub: true,
-            },
-          }
-        );
-      }, sectionRef);
-
-      return () => ctx.revert();
-    });
-
-    mm.add("(prefers-reduced-motion: reduce)", () => {
-      gsap.set(sectionRef.current, { y: 0, opacity: 1 });
-      containerRefs.current.forEach((container) => {
-        if (!container) return;
-        gsap.set(container.querySelectorAll('.line-wrapper'), { yPercent: 0, opacity: 1 });
-      });
-    });
-
-    return () => mm.revert();
-  }, []);
+    if (!frase.current) return
+    const mm = gsap.matchMedia()
+    mm.add(CONDICOES, (ctx) => {
+      if (!deveAnimar(ctx)) return
+      const palavras = frase.current!.querySelectorAll('span[data-palavra]')
+      gsap.fromTo(
+        palavras,
+        { opacity: 0.16 },
+        {
+          opacity: 1,
+          stagger: 0.12,
+          ease: 'none',
+          scrollTrigger: { trigger: frase.current, start: 'top 82%', end: 'bottom 48%', scrub: true },
+        },
+      )
+    })
+    return () => mm.revert()
+  }, [])
 
   return (
-    <section ref={sectionRef} className="relative py-32 md:py-48 will-change-transform">
-      <div className="max-w-5xl mx-auto px-6">
-        <div className="mb-20">
-          <span className="text-primary text-sm tracking-[0.2em] uppercase font-medium">
-            Sobre Mim
-          </span>
-          <h2 className="text-4xl md:text-5xl font-bold mt-4 text-gradient">
-            Quem eu sou
-          </h2>
-        </div>
+    <section ref={raiz} id="sobre" className="relative px-6 py-20 md:py-40">
+      <div className="mx-auto max-w-6xl md:px-6">
+        <p className="font-mono text-xs uppercase tracking-[0.18em] text-muted-foreground" data-reveal>
+          <span className="text-primary">01</span> / sobre
+        </p>
 
-        <div className="space-y-40">
-          {lines.map((lineGroup, index) => (
-            <div
-              key={index}
-              ref={(el) => (containerRefs.current[index] = el)}
-              className="relative"
-            >
-              <h3 className="text-2xl md:text-3xl lg:text-[2.75rem] font-semibold leading-snug text-foreground/90 text-center">
-                {lineGroup.map((line, lineIndex) => (
-                  <span key={lineIndex} className="line-mask block overflow-hidden">
-                    <span className="line-wrapper block will-change-transform">
-                      {line}
-                    </span>
-                  </span>
-                ))}
-              </h3>
-            </div>
+        <h2 ref={frase} className="mt-6 max-w-4xl text-balance text-3xl font-semibold leading-[1.15] tracking-tight md:text-5xl lg:text-6xl">
+          {perfil.frase.split(' ').map((palavra, i) => (
+            <span key={i} data-palavra className="inline-block pr-[0.28em]">
+              {palavra}
+            </span>
           ))}
+        </h2>
+
+        <div className="mt-20 grid gap-14 md:grid-cols-12 md:gap-12">
+          <div className="space-y-6 text-lg leading-relaxed text-foreground/85 md:col-span-7" data-reveal>
+            {perfil.sobre.map((p) => (
+              <p key={p} className="text-pretty">
+                {p}
+              </p>
+            ))}
+          </div>
+
+          <div className="md:col-span-5" data-reveal>
+            <dl className="divide-y divide-border border-y border-border font-mono text-sm">
+              {perfil.fatos.map((f) => (
+                <div key={f.rotulo} className="grid grid-cols-[6.5rem_1fr] gap-4 py-3">
+                  <dt className="text-muted-foreground">{f.rotulo}</dt>
+                  <dd className="text-foreground">{f.valor}</dd>
+                </div>
+              ))}
+            </dl>
+
+            <ol className="mt-10 space-y-6 border-l border-border pl-6">
+              {perfil.trajetoria.map((t) => (
+                <li key={t.quando} className="relative">
+                  <span className="absolute -left-[1.85rem] top-1.5 h-2 w-2 rounded-full bg-primary" aria-hidden="true" />
+                  <p className="font-mono text-xs uppercase tracking-wider text-muted-foreground">{t.quando}</p>
+                  <p className="mt-1 font-semibold">{t.titulo}</p>
+                  <p className="mt-1 text-sm leading-relaxed text-muted-foreground">{t.texto}</p>
+                </li>
+              ))}
+            </ol>
+          </div>
         </div>
       </div>
-
-      <div className="h-24" />
     </section>
-  );
-};
+  )
+}
 
-export default About;
+export default About

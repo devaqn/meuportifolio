@@ -1,127 +1,46 @@
-# 👨‍💻 Pedro Miguel — Developer Portfolio
+# Portfólio do Pedro Miguel
 
-Welcome to my professional portfolio 🚀  
-Here you’ll find some of my main projects, studies, and solutions developed throughout my journey as a **software developer**.
+Meu portfólio, no ar em [portfoliodevaqn.netlify.app](https://portfoliodevaqn.netlify.app). É uma página única em React com animações de rolagem feitas com GSAP.
 
-🔗 **Live portfolio:**  
-👉 https://portfoliodevaqn.netlify.app
+A ideia do site é que qualquer pessoa entenda o que eu faço, mesmo sem ser da área. Por isso os textos usam palavras comuns, cada projeto tem uma janela que explica como ele é por dentro, e os números da seção "números" saem do meu GitHub, com a data da medição.
 
----
+## Rodar
 
-## 🧠 About Me
+```bash
+npm install
+npm run dev        # http://localhost:8080
+npm test           # testes dos dados e da formatação
+npm run build      # gera a pasta dist
+```
 
-I’m a developer focused on building **practical solutions**, automations, and web applications.  
-I enjoy creating systems that truly solve problems, always aiming for clean, organized, and scalable code.
+Quem tem "reduzir movimento" ligado no sistema vê a página sem as animações. Para ver a versão animada nesse caso, abra `http://localhost:8080/?movimento=total`.
 
-I have experience with both **front-end** and **back-end** development, as well as projects involving **bots**, **APIs**, **Linux servers**, and **automation**.
+## Onde mexer
 
----
+O texto e os dados ficam em `src/content/`, separados do visual. Os componentes só desenham o que está lá.
 
-## 🛠️ Technologies & Tools
+| Arquivo | O que tem |
+|---|---|
+| `perfil.ts` | Frase de abertura, textos do "sobre", fatos, trajetória, "como posso ajudar" e os links de contato |
+| `projetos.ts` | Os quatro projetos de código privado (com o diagrama de cada um) e os projetos públicos |
+| `git.ts` | Os números medidos no GitHub, a data da medição e a lista de reserva dos últimos projetos |
 
-Some of the technologies I work with:
+A foto está em `public/pedro.webp`. Para trocar, coloque outra imagem com o mesmo nome (formato 4:5 funciona melhor) e atualize `public/og.png`, que é a imagem que aparece quando o link é compartilhado.
 
-- **JavaScript / Node.js**
-- **HTML5, CSS3**
-- **REST APIs**
-- **Git & GitHub**
-- **PM2**
-- **Linux / VPS**
-- **Process Automation**
-- **WhatsApp Integration (Baileys)**
+## Regras que o projeto segue
 
----
+Só entra no site o que dá para conferir. Cada afirmação de `projetos.ts` vem do código do repositório, e só entra demo no ar que é comprovadamente minha. Quando um número muda, troque o valor e a data em `git.ts`.
 
-## 📂 What You’ll Find Here
+Os testes em `src/content/content.test.ts` garantem que os dados estão coerentes e que o texto não usa sigla técnica solta nem travessão. Se o teste de linguagem falhar, a frase provavelmente ficou difícil para quem não é da área.
 
-- 📌 Personal and professional projects  
-- 🤖 Bots and automations  
-- 🌐 Web applications  
-- 🧪 Technical studies and experiments  
-- 📈 Continuous growth as a developer  
+## Estrutura
 
-Each project includes a description, its purpose, and when applicable, a link to the repository.
+```
+src/
+  components/   seções da página (Hero, About, Work, Evidence, Offer, Contact)
+  content/      textos e dados
+  hooks/        entrada na rolagem e atividade recente do GitHub
+  lib/          controle de movimento
+```
 
----
-
-## 📬 Contact
-
-If you’d like to connect, collaborate, or discuss a project:
-
-- 💼 **Portfolio:** https://portfoliodevaqn.netlify.app  
-- 🐙 **GitHub:** https://github.com/devaqn  
-
----
-
-## 🚀 Final Notes
-
-This portfolio is constantly evolving.  
-Always learning, improving, and building better solutions.
-
-Feel free to explore 👊
-
----
-
-<br>
-
-# 👨‍💻 Pedro Miguel — Portfólio de Desenvolvedor
-
-Bem-vindo ao meu portfólio profissional 🚀  
-Aqui você encontra alguns dos meus principais projetos, estudos e soluções desenvolvidas ao longo da minha jornada como **desenvolvedor**.
-
-🔗 **Portfólio online:**  
-👉 https://portfoliodevaqn.netlify.app
-
----
-
-## 🧠 Sobre Mim
-
-Sou desenvolvedor com foco em **soluções práticas**, automações e aplicações web.  
-Gosto de criar sistemas que realmente resolvem problemas, sempre prezando por código limpo, organizado e escalável.
-
-Tenho experiência tanto no **front-end** quanto no **back-end**, além de projetos envolvendo **bots**, **APIs**, **servidores Linux** e **automação**.
-
----
-
-## 🛠️ Tecnologias & Ferramentas
-
-Algumas das tecnologias que utilizo:
-
-- **JavaScript / Node.js**
-- **HTML5, CSS3**
-- **APIs REST**
-- **Git & GitHub**
-- **PM2**
-- **Linux / VPS**
-- **Automação de processos**
-- **Integração com WhatsApp (Baileys)**
-
----
-
-## 📂 O Que Você Vai Encontrar
-
-- 📌 Projetos pessoais e profissionais  
-- 🤖 Bots e automações  
-- 🌐 Aplicações web  
-- 🧪 Estudos e experimentos técnicos  
-- 📈 Evolução contínua como desenvolvedor  
-
-Cada projeto possui descrição, objetivo e, quando aplicável, link para o repositório.
-
----
-
-## 📬 Contato
-
-Se quiser trocar uma ideia, colaborar ou conversar sobre algum projeto:
-
-- 💼 **Portfólio:** https://portfoliodevaqn.netlify.app  
-- 🐙 **GitHub:** https://github.com/devaqn  
-
----
-
-## 🚀 Considerações Finais
-
-Este portfólio está em constante evolução.  
-Sempre buscando aprender, evoluir e construir soluções cada vez melhores.
-
-Sinta-se à vontade para explorar 👊
+A lista "projetos que mexi por último" vem direto da API pública do GitHub e guarda o resultado por 10 minutos na sessão. Se a API não responder, aparece a lista de reserva de `git.ts`, e a página avisa qual das duas está na tela.
