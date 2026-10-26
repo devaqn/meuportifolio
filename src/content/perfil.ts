@@ -1,5 +1,5 @@
 /**
- * Tudo o que é texto sobre o Pedro mora aqui. Para mudar o tom, a foto ou um
+ * Tudo o que é texto sobre o Pedro mora aqui. Para mudar o tom ou um
  * link, edite este arquivo: os componentes só desenham o que está nele.
  *
  * Regra de escrita: quem lê pode não ser da área. Termo técnico só aparece
@@ -10,8 +10,6 @@ export const perfil = {
   nome: 'Pedro Miguel',
   handle: 'devaqn',
   cidade: 'Recife, PE',
-  foto: '/pedro.webp',
-  fotoAlt: 'Pedro Miguel, desenvolvedor de sistemas de Recife',
 
   email: 'pedromiguelaqn@gmail.com',
   telefone: '(81) 99819-1625',

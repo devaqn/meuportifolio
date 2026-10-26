@@ -13,7 +13,7 @@ npm test           # testes dos dados e da formatação
 npm run build      # gera a pasta dist
 ```
 
-Quem tem "reduzir movimento" ligado no sistema vê a página sem as animações. Para ver a versão animada nesse caso, abra `http://localhost:8080/?movimento=total`.
+As animações de rolagem tocam sempre, porque quem manda nelas é a pessoa rolando a página. Só o movimento que roda sozinho (a seta piscando) obedece a "reduzir movimento" do sistema. Para ver a página parada, abra `http://localhost:8080/?movimento=reduzido`.
 
 ## Onde mexer
 
@@ -25,7 +25,7 @@ O texto e os dados ficam em `src/content/`, separados do visual. Os componentes 
 | `projetos.ts` | Os quatro projetos de código privado (com o diagrama de cada um) e os projetos públicos |
 | `git.ts` | Os números medidos no GitHub, a data da medição e a lista de reserva dos últimos projetos |
 
-A foto está em `public/pedro.webp`. Para trocar, coloque outra imagem com o mesmo nome (formato 4:5 funciona melhor) e atualize `public/og.png`, que é a imagem que aparece quando o link é compartilhado.
+A imagem que aparece quando o link é compartilhado é `public/og.png` (1200 por 630). Não há foto na página.
 
 ## Regras que o projeto segue
 
